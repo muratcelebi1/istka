@@ -15,7 +15,7 @@ try {
     if (!$conn) {
         die("Bağlantı hatası");
     }
-    
+
 
     // // Geçerli tarih ve saati al
     // $currentDateTime = date('Y-m-d H:i:s');
@@ -48,8 +48,41 @@ try {
     // $stmt->execute();
 
     // // Başarılı mesajı
-    // echo "New records created successfully";
+    // PDO bağlantısı kur
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
+    // PDO hata modunu ayarla
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Güncelleme yapmak istediğimiz ID
+    $id = 5;
+
+    // Güncelleme sorgusu
+    $query = "UPDATE istka SET firstname='franks' WHERE id=:id";
+    $stmt = $conn->prepare($query);
+
+    // Parametreyi bağla ve sorguyu çalıştır
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    echo "Veri güncenllendi.";
+
+    // Güncellenen veriyi sorgulamak için SELECT
+    $query = "SELECT * FROM istka WHERE id=:id";
+    $stmt = $conn->prepare($query);
+
+    // Parametreyi bağla ve sorguyu çalıştır
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Veriyi al
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Sonuçları yazdır
+    if ($result) {
+        echo var_dump($result);
+    } else {
+        echo "Veri bulunamadı.";
+    }
 
 
 } catch (PDOException $e) {
