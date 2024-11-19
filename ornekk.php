@@ -47,30 +47,20 @@ try {
     // $lastname = 'Dooley';
     // $stmt->execute();
 
-    // // Başarılı mesajı
-    // PDO bağlantısı kur
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-    // PDO hata modunu ayarla
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Güncelleme yapmak istediğimiz ID
     $id = 5;
 
     // Güncelleme sorgusu
     $query = "UPDATE istka SET firstname='franks' WHERE id=:id";
+    // $conn->exec($query);  update ,delete,inserti bu şekilde calıştırabiliyoruz.
     $stmt = $conn->prepare($query);
 
     // Parametreyi bağla ve sorguyu çalıştır
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
-    echo "Veri güncenllendi.";
 
-    // Güncellenen veriyi sorgulamak için SELECT
     $query = "SELECT * FROM istka WHERE id=:id";
     $stmt = $conn->prepare($query);
 
-    // Parametreyi bağla ve sorguyu çalıştır
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
@@ -79,6 +69,11 @@ try {
 
     // Sonuçları yazdır
     if ($result) {
+        echo "Güncellenen Veri: <br>";
+        echo "ID: " . $result['id'] . "<br>";
+        echo "Firstname: " . $result['firstname'] . "<br>";
+        echo "Lastname: " . $result['lastname'] . "<br>";
+        echo "Created At: " . $result['created_at'] . "<br>";
         echo var_dump($result);
     } else {
         echo "Veri bulunamadı.";
@@ -86,10 +81,10 @@ try {
 
 
 } catch (PDOException $e) {
-    // Hata mesajı
     echo "Error: " . $e->getMessage();
 }
 
-// Bağlantıyı kapat
 $conn = null;
+
+
 ?>
