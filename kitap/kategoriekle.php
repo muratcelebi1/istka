@@ -26,7 +26,8 @@ if (isset($_SESSION["message"])) {
     <form action="config.php" method="POST">
         <div class="mb-3">
             <label for="kategori" class="form-label">Kategori adı</label>
-            <input type="text" class="form-control" id="kategori" name="kategoriad" placeholder="Kategori adını giriniz">
+            <input type="text" class="form-control" id="kategori" name="kategoriad"
+                placeholder="Kategori adını giriniz">
         </div>
 
         <button type="submit" class="btn btn-primary" id="btn">Kategori Ekle</button>
@@ -36,19 +37,19 @@ if (isset($_SESSION["message"])) {
 </body>
 
 <script>
-    $(document).ready(function() {
-        $("form").on("submit", function(event) {
-            if ($("#kategori").val() == "") {  
-                Swal.fire({
-                    title: "Hata",
-                    text: "Alanları Boş Bırakmayınız",
-                    icon: "error"
-                });
-                event.preventDefault(); 
-                return;
-            }
-        });
+$(document).ready(function() {
+    $("form").on("submit", function(event) {
+        if ($("#kategori").val() == "") {
+            Swal.fire({
+                title: "Hata",
+                text: "Alanları Boş Bırakmayınız",
+                icon: "error"
+            });
+            event.preventDefault();
+            return;
+        }
     });
+});
 </script>
 
 </html>
