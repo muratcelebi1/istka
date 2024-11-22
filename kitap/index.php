@@ -17,7 +17,7 @@ include "header.php";
         while ($row = $result->fetch_assoc()) {
             // Eğer kitap sayısı 1'den fazla ise, kategoriyi ve kitapları göster
             if ($row["kitapsayisi"] > 0) {
-                echo "<h4>" . $row['kategori_ad'] . " </h4><hr>";
+                echo "<hr><h4 class='fw-bold mt-3'>" . $row['kategori_ad'] . " </h4><hr>";
 
                 // Bu kategoriye ait kitapları sorgulamak için yeni bir SQL sorgusu
                 $sql_kitaplar = "SELECT ki.kitapad, ki.fiyat
@@ -27,7 +27,7 @@ include "header.php";
                 $result_kitaplar = $conn->query($sql_kitaplar);
 
                 if ($result_kitaplar->num_rows > 0) {
-                    echo " <div class='row'>
+                    echo " <div class='row mb-2'>
                                 <div class='col-md-6'>
                                     <h6>Kitap Adı</h6>
                                 </div>

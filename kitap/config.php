@@ -1,4 +1,5 @@
 <?php
+session_start() ;
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -19,9 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kategoriad"])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $kategoriad);
     if ($stmt->execute()) {
-        echo "Yeni kategori başarıyla eklendi!";
+        $_SESSION["message"]= "basarili";
+        return header("Location: kategoriekle.php");
     } else {
-        echo "Hata: " . $stmt->error;
+        $_SESSION["message"]= "basarisiz";
     }
     $stmt->close();
 };
@@ -34,9 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kitapad"])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sii", $kitapad, $kitapkategori, $kitapfiyat);
     if ($stmt->execute()) {
+        $_SESSION["message"]= "basarili";
         return header("Location: kitapekle.php");
     } else {
-        echo "Hata: " . $stmt->error;
+        $_SESSION["message"]= "basarisiz";
     }
     $stmt->close();
 };
