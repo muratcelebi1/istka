@@ -14,7 +14,7 @@ include "header.php";
         <tbody>
         <?php 
                $sql = "SELECT ki.kitapad , ka.kategori_ad FROM kategori ka 
-               inner join kitaplar ki on ki.kategori_id = ka.id";
+               inner join kitap ki on ki.kategori_id = ka.id";
                $result = $conn->query($sql);
                if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
@@ -26,3 +26,6 @@ include "header.php";
         </tbody>
     </table>
 </div>
+ </body>
+ <?php include "footer.php"; ?>
+</html>
