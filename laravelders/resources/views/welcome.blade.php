@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('layouts.master')
 @section('page_title', 'Anasayfa')
 @section('page_description', 'Anasayfa-index')
@@ -32,3 +33,10 @@
 
 </div>
 @endsection
+=======
+
+@extends('layouts.master')
+@section('page_title', 'Anasayfa')
+@section('page_description', 'Anasayfa-index')
+   
+>>>>>>> c755ed41bbdadee3913da8af6c7dbd75c748703a
