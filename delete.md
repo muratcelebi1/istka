@@ -61,50 +61,55 @@ Remove-Item -Recurse -Force .git // yakın depo kaldırma
 <div class="container mt-2">
   <h2 class="mb-4">Harcamalar ve Gelir Raporları</h2>
 
-  @foreach ($month as $mon)
-    <div class="collapse-section">
-    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseTable{{ $mon->month }}"
+
+  <div class="collapse-section">
+    @foreach ($month as $mon)
+    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseTable{{ $mon->month }} "
       aria-expanded="false" aria-controls="collapseTable{{ $mon->month }}">
       {{ $mon->month }} <!-- Ay ismi burada yer alacak -->
     </button>
+    @endforeach
+    @foreach ($month as $mon)
+      <div class="collapse" id="collapseTable{{ $mon->month }}">
+        <div class="table-container mt-2">
+        <table class="table table-striped">
+          <h3>{{ \Carbon\Carbon::createFromFormat('m', $mon->month)->locale('tr')->isoFormat('MMMM') }}
 
-    <div class="collapse" id="collapseTable{{ $mon->month }}">
-      <div class="table-container mt-2">
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">Tarih</th>
-          <th scope="col">Kategori</th>
-          <th scope="col">Tutar</th>
-          <th scope="col">Tür</th>
-        </tr>
-        </thead>
-        <tbody>
-        @php  $totalAmount = 0; @endphp
-        @foreach($expense as $ex)
+
+          </h3>
+          <thead>
+          <tr>
+
+            <th scope="col">Kategori</th>
+            <th scope="col">Tutar</th>
+            <th scope="col">Tür</th>
+          </tr>
+          </thead>
+          <tbody>
+          @php  $totalAmount = 0; @endphp
+          @foreach($expense as $ex)
         @if($ex->month == $mon->month)
         <tr>
-          <td>{{ $ex->month}}</td> <!-- Tarih satırı buraya gelecek -->
-          <td>{{ $ex->title }}</td>
-          <td>{{ number_format($ex->total_amount, 2) }} TL</td>
-          <td>{{ $ex->description }}</td>
-          @php
+        <td>{{ $ex->title }}</td>
+        <td>{{ number_format($ex->total_amount, 2) }} TL</td>
+        <td>{{ $ex->description }}</td>
+        @php
       $totalAmount += $ex->total_amount;
     @endphp
         </tr>
     @endif
-    @endforeach
-        </tbody>
-        <tfoot>
-        <tr>
-          <td colspan="2"><strong>Toplam Harcama:</strong></td>
-          <td><strong>{{ number_format($totalAmount, 2) }} TL</strong></td>
-        </tr>
-        </tfoot>
-      </table>
+      @endforeach
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="2"><strong>Toplam Harcama:</strong></td>
+            <td><strong>{{ number_format($totalAmount, 2) }} TL</strong></td>
+          </tr>
+          </tfoot>
+        </table>
+        </div>
       </div>
-    </div>
-    </div>
-  @endforeach
+      </div>
+    @endforeach
 
 </div>
