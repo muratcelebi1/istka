@@ -1,4 +1,4 @@
-  @php $count = 0; @endphp
+@php $count = 0; @endphp
                                         @foreach ($userEvents as $ue)
                                             @if ($ue->guid == $event->event_id)
                                                 @php
@@ -25,4 +25,3 @@
                                             <!-- Eğer kullanıcı sayısı 3'ü aşarsa '+' sembolünü göster -->
                                             <span class="plus-icon text-muted ms-2">+{{ $count - 3 }}</span>
                                         @endif
-                                        <span
